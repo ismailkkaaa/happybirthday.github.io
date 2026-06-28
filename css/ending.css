@@ -1,0 +1,291 @@
+.ending-level {
+  min-height: 100svh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  background: #060308;
+  color: white;
+  padding: 1.5rem;
+}
+
+.ending-montage {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+.montage-photo {
+  position: absolute;
+  inset: 0;
+  background: var(--photo-bg) no-repeat center center;
+  background-size: cover;
+  opacity: 0;
+  transform: scale(1.08);
+  transition: opacity 2.5s ease-in-out, transform 10s linear;
+}
+
+.montage-photo.is-active {
+  opacity: 1;
+  transform: scale(1.01);
+}
+
+.ending-stars {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.ending-stars span {
+  position: absolute;
+  width: 0.2rem;
+  height: 0.2rem;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 0 8px white, 0 0 3px white;
+  animation: twinkle 3s ease-in-out infinite alternate;
+}
+
+/* Perfect Centered Text Box */
+.ending-copy {
+  position: relative;
+  z-index: 5;
+  width: min(100%, 30rem);
+  min-height: 15rem;
+  pointer-events: none;
+}
+
+.ending-copy p {
+  margin: 0;
+  color: #fff6fa;
+  font-family: "Caveat", cursive;
+  font-size: clamp(1.8rem, 8.5vw, 3.8rem);
+  font-weight: 700;
+  line-height: 1.35;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.18);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+}
+
+/* --- Message 1 ("One last thing...") --- */
+/* Entrance: Breathing character spacing expansion + blur fade */
+.ending-copy p[data-index="1"] {
+  opacity: 0;
+  filter: blur(12px);
+  letter-spacing: 0.25em;
+  transform: translate(-50%, -50%) scale(0.96);
+  transition: opacity 1.8s cubic-bezier(0.25, 1, 0.5, 1),
+              filter 1.8s cubic-bezier(0.25, 1, 0.5, 1),
+              letter-spacing 2.2s cubic-bezier(0.25, 1, 0.5, 1),
+              transform 1.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.ending-copy p[data-index="1"].is-visible {
+  opacity: 1;
+  filter: blur(0);
+  letter-spacing: 0.04em;
+  transform: translate(-50%, -50%) scale(1);
+}
+.ending-copy p[data-index="1"].is-leaving {
+  opacity: 0;
+  filter: blur(15px);
+  letter-spacing: 0.18em;
+  transform: translate(-50%, -50%) scale(1.06) translateY(-10px);
+  transition: opacity 1.5s ease-in, filter 1.5s ease-in, transform 1.5s ease-in;
+}
+
+/* --- Message 2 ("Thank you for existing.") --- */
+/* Entrance: Vertical slide up from bottom + blur fade */
+.ending-copy p[data-index="2"] {
+  opacity: 0;
+  filter: blur(10px);
+  transform: translate(-50%, -50%) translateY(25px);
+  transition: opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 1.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.ending-copy p[data-index="2"].is-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translate(-50%, -50%) translateY(0);
+}
+.ending-copy p[data-index="2"].is-leaving {
+  opacity: 0;
+  filter: blur(12px);
+  transform: translate(-50%, -50%) translateY(-25px);
+  transition: opacity 1.4s ease-in, filter 1.4s ease-in, transform 1.4s ease-in;
+}
+
+/* --- Message 3 ("Happy Birthday ❤️") --- */
+/* Entrance: Soft slow zoom from smaller scale + glowing shadow */
+.ending-copy p[data-index="3"] {
+  opacity: 0;
+  filter: blur(14px);
+  transform: translate(-50%, -50%) scale(0.88);
+  transition: opacity 1.8s cubic-bezier(0.34, 1.56, 0.64, 1),
+              filter 1.8s cubic-bezier(0.25, 1, 0.5, 1),
+              transform 1.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.ending-copy p[data-index="3"].is-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translate(-50%, -50%) scale(1);
+  text-shadow: 0 0 15px rgba(255, 112, 173, 0.55), 0 0 30px rgba(255, 255, 255, 0.3);
+}
+.ending-copy p[data-index="3"].is-leaving {
+  opacity: 0;
+  filter: blur(15px);
+  transform: translate(-50%, -50%) scale(1.15);
+  transition: opacity 1.5s ease-in, filter 1.5s ease-in, transform 1.5s ease-in;
+}
+
+/* --- Message 4 ("The gift was never this website...") --- */
+/* Entrance: Soft left-to-right sweep + blur fade */
+.ending-copy p[data-index="4"] {
+  opacity: 0;
+  filter: blur(12px);
+  transform: translate(-50%, -50%) translateX(-30px);
+  transition: opacity 1.6s cubic-bezier(0.25, 1, 0.5, 1),
+              filter 1.6s cubic-bezier(0.25, 1, 0.5, 1),
+              transform 1.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.ending-copy p[data-index="4"].is-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translate(-50%, -50%) translateX(0);
+}
+.ending-copy p[data-index="4"].is-leaving {
+  opacity: 0;
+  filter: blur(12px);
+  transform: translate(-50%, -50%) translateX(30px);
+  transition: opacity 1.4s ease-in, filter 1.4s ease-in, transform 1.4s ease-in;
+}
+
+/* --- Message 5 ("It was the smile I hoped it would bring to you.") --- */
+/* Entrance: Soft right-to-left sweep + blur fade */
+.ending-copy p[data-index="5"] {
+  opacity: 0;
+  filter: blur(12px);
+  transform: translate(-50%, -50%) translateX(30px);
+  transition: opacity 1.6s cubic-bezier(0.25, 1, 0.5, 1),
+              filter 1.6s cubic-bezier(0.25, 1, 0.5, 1),
+              transform 1.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.ending-copy p[data-index="5"].is-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translate(-50%, -50%) translateX(0);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+.ending-copy p[data-index="5"].is-leaving {
+  opacity: 0;
+  filter: blur(15px);
+  transform: translate(-50%, -50%) translateY(-15px);
+  transition: opacity 1.5s ease-in, filter 1.5s ease-in, transform 1.5s ease-in;
+}
+
+/* Tablet & Desktop Upscaling */
+@media (min-width: 768px) {
+  .ending-copy {
+    width: min(88vw, 38rem);
+    min-height: 12rem;
+  }
+  .final-note {
+    width: min(88vw, 38rem);
+  }
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+  100% { opacity: 0.4; transform: scale(0.9); }
+}
+
+/* Final permanent note styling */
+.final-note {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(100%, 30rem);
+  text-align: center;
+  z-index: 6;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 2.5s ease-in-out;
+}
+
+.final-note.is-visible {
+  opacity: 1;
+}
+
+.final-note p {
+  margin: 0.8rem 0;
+  color: #fff6fa;
+  font-family: "Caveat", cursive;
+  font-size: clamp(1.4rem, 6.2vw, 2.2rem);
+  font-weight: 600;
+  line-height: 1.45;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  
+  /* Staggered entrance settings */
+  opacity: 0;
+  filter: blur(10px);
+  transform: translateY(15px);
+  transition: opacity 2s cubic-bezier(0.25, 1, 0.5, 1),
+              filter 2s cubic-bezier(0.25, 1, 0.5, 1),
+              transform 2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.final-note.is-visible p:nth-child(1) {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+
+.final-note.is-visible p:nth-child(2) {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+  transition-delay: 0.8s;
+}
+
+.final-note.is-visible p:nth-child(3) {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+  transition-delay: 1.6s;
+}
+
+.final-note.is-visible p:nth-child(4) {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+  transition-delay: 2.4s;
+  animation: glowPulse 3s infinite alternate 4.5s ease-in-out;
+}
+
+.final-note p.heart-line {
+  font-size: clamp(1.6rem, 7vw, 2.6rem);
+  font-weight: 700;
+  margin-top: 1.5rem;
+  color: #ffabd0;
+  text-shadow: 0 0 15px rgba(255, 112, 173, 0.45);
+}
+
+@keyframes glowPulse {
+  0% {
+    text-shadow: 0 0 15px rgba(255, 112, 173, 0.45);
+  }
+  100% {
+    text-shadow: 0 0 25px rgba(255, 112, 173, 0.85), 0 0 10px rgba(255, 255, 255, 0.4);
+  }
+}

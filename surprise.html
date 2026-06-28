@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A final interactive surprise. Tap the premium box to reveal magical memories."
+    />
+    <title>Chapter 5: The Surprise 🎁</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Great+Vibes&family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/shared.css" />
+    <link rel="stylesheet" href="css/surprise.css" />
+  </head>
+  <body>
+    <!-- Confetti Canvas rendering above background elements -->
+    <canvas id="confettiCanvas" class="confetti-canvas" aria-hidden="true"></canvas>
+
+    <main class="journey" data-chapter="5">
+      <section class="surprise-level" aria-label="Surprise box">
+        <div class="level-shell">
+          <div class="level-heading">
+            <p class="level-kicker">One last thing</p>
+            <h2>There is one more thing.</h2>
+            <p>Tap the box and let it open slowly.</p>
+          </div>
+
+          <button id="revealBoxButton" class="reveal-box-button" type="button" aria-label="Open surprise box">
+            <span class="luxury-gift" aria-hidden="true">
+              <span class="gift-glow"></span>
+              <img src="luxury_gift_box.png" class="gift-slice gift-lid-img" alt="" />
+              <img src="luxury_gift_box.png" class="gift-slice gift-body-img" alt="" />
+            </span>
+          </button>
+
+          <!-- Floating memories container -->
+          <div id="floatingMemories" class="floating-memories" aria-label="Floating memories"></div>
+
+          <!-- Stylized Audio Player for Voice Message -->
+          <div id="voiceNotePlayer" class="voice-note-player" aria-label="Audio player for voice message">
+            <div class="player-card">
+              <button id="playBtn" class="play-btn" type="button" aria-label="Play voice note">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="margin-left: 2px;">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </button>
+              <div class="player-info">
+                <p class="player-title">A special voice message</p>
+                <p class="player-subtitle">Listen when you are ready 🎧</p>
+              </div>
+              <div id="waveform" class="waveform" aria-hidden="true">
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stepper navigation to Chapter 6 -->
+          <button id="nextPageButton" class="primary-button step-ending-button" type="button">
+            Step inside... ✨
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <script src="js/config.js"></script>
+    <script src="js/shared.js"></script>
+    <script src="js/surprise.js"></script>
+  </body>
+</html>

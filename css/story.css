@@ -1,0 +1,307 @@
+/* Reset and fill page */
+body {
+  background: #000;
+  overflow: hidden;
+}
+
+.story-level {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  z-index: 2;
+}
+
+/* Stories Viewer Container - Mobile Full Screen by Default */
+.stories-viewer {
+  position: relative;
+  width: 100vw;
+  height: 100svh;
+  background: #0d0611;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 10;
+}
+
+/* Tablet & Desktop Layout - Scale into a premium mock phone shell */
+@media (min-width: 768px) {
+  .story-level {
+    padding: 2rem 1rem;
+    background: 
+      radial-gradient(circle at 10% 20%, rgba(155, 93, 229, 0.12), transparent 40rem),
+      radial-gradient(circle at 90% 80%, rgba(255, 112, 173, 0.15), transparent 40rem),
+      linear-gradient(135deg, #18091b 0%, #060208 100%);
+  }
+
+  .stories-viewer {
+    width: min(94vw, 25.5rem);
+    height: min(90vh, 52rem);
+    border-radius: 2rem;
+    border: 8px solid #2d1d33;
+    box-shadow: 
+      0 2.5rem 5rem rgba(0, 0, 0, 0.65), 
+      0 0 40px rgba(255, 112, 173, 0.12);
+  }
+}
+
+/* Segmented progress bars at the top */
+.progress-bar-container {
+  position: absolute;
+  top: clamp(0.7rem, 3.5vw, 1rem);
+  left: 0.8rem;
+  right: 0.8rem;
+  display: flex;
+  gap: 0.3rem;
+  z-index: 100;
+}
+
+.progress-segment {
+  height: 3px;
+  flex: 1;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  display: block;
+  width: 0%;
+  height: 100%;
+  background: #fff;
+  border-radius: 99px;
+}
+
+/* Profile Header Overlay */
+.stories-header {
+  position: absolute;
+  top: clamp(1.4rem, 6vw, 2rem);
+  left: 1rem;
+  right: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.profile-group {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.avatar-circle {
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  border: 2px solid white;
+  box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.2);
+}
+
+.profile-text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.profile-name {
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.profile-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.mute-btn {
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.mute-btn:active {
+  transform: scale(0.9);
+  background: rgba(0, 0, 0, 0.45);
+}
+
+/* Slides Wrapper */
+.slides-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.story-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1;
+  transition: opacity 0.4s ease-in-out, visibility 0.4s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.story-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 2;
+}
+
+/* Slide backgrounds */
+.slide-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--photo-bg) no-repeat center center;
+  background-size: cover;
+  filter: blur(25px) brightness(0.5);
+  transform: scale(1.2);
+  z-index: 1;
+}
+
+.slide-bg.no-photo {
+  filter: none;
+  transform: none;
+  background: var(--photo-bg);
+}
+
+/* Centered content photo */
+.slide-photo {
+  position: relative;
+  z-index: 2;
+  width: 88%;
+  max-height: 52vh;
+  object-fit: cover;
+  border-radius: 1.2rem;
+  box-shadow: 0 1.5rem 3.5rem rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  margin-bottom: 8rem; /* Space for content overlay */
+}
+
+/* Slide text caption overlay */
+.slide-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 5rem 1.5rem clamp(2.5rem, 8vw, 4rem);
+  background: linear-gradient(0deg, rgba(8, 2, 10, 0.98) 0%, rgba(8, 2, 10, 0.75) 70%, transparent 100%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: left;
+}
+
+.slide-overlay h3 {
+  margin: 0;
+  color: var(--pink);
+  font-size: clamp(1.15rem, 5vw, 1.4rem);
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.slide-overlay p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.95);
+  font-family: "Caveat", cursive;
+  font-size: clamp(1.4rem, 6vw, 1.8rem);
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+/* Call to action overlay on final slide */
+.final-action-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+/* Tap Zones */
+.nav-tap-zones {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+}
+
+.tap-zone {
+  height: 100%;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.left-zone {
+  width: 30%;
+}
+
+.right-zone {
+  width: 70%;
+}
+
+/* Tutorial overlay styling */
+.stories-tutorial {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 200;
+  display: flex;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.stories-tutorial.is-hidden {
+  opacity: 0;
+}
+
+.tut-instruction {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.left-tut {
+  border-right: 1px dashed rgba(255, 255, 255, 0.2);
+}

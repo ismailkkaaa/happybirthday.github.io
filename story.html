@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Our story, in little pieces. Scroll through our timeline of memories."
+    />
+    <title>Chapter 3: Our Story 🌸</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Great+Vibes&family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/shared.css" />
+    <link rel="stylesheet" href="css/story.css" />
+  </head>
+  <body>
+    <main class="journey" data-chapter="3">
+      <section class="story-level" aria-label="Our story timeline">
+        
+        <!-- Premium Instagram-Style Stories Container -->
+        <div class="stories-viewer" id="storiesViewer">
+          
+          <!-- Segmented progress bars at the top -->
+          <div class="progress-bar-container" id="progressBarContainer"></div>
+
+          <!-- Header overlay (User Profile details) -->
+          <div class="stories-header">
+            <div class="profile-group">
+              <div class="avatar-circle">💖</div>
+              <div class="profile-text">
+                <span class="profile-name">Our Memories</span>
+                <span class="profile-subtitle">Chapter 3</span>
+              </div>
+            </div>
+            <button id="musicToggleBtn" class="mute-btn" type="button" aria-label="Mute or unmute music">
+              <svg id="musicIcon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Slide Content Area -->
+          <div class="slides-wrapper" id="slidesWrapper"></div>
+
+          <!-- Gesture Navigation Overlay (Left & Right tap zones) -->
+          <div class="nav-tap-zones">
+            <div class="tap-zone left-zone" id="tapLeft" role="button" aria-label="Previous slide"></div>
+            <div class="tap-zone right-zone" id="tapRight" role="button" aria-label="Next slide"></div>
+          </div>
+
+          <!-- Tutorial Helper (Fades out after 2.5 seconds) -->
+          <div class="stories-tutorial" id="storiesTutorial">
+            <div class="tut-instruction left-tut">👈 Tap left to go back</div>
+            <div class="tut-instruction right-tut">Tap right to go forward 👉</div>
+          </div>
+        </div>
+
+      </section>
+    </main>
+
+    <script src="js/config.js"></script>
+    <script src="js/shared.js"></script>
+    <script src="js/story.js"></script>
+  </body>
+</html>

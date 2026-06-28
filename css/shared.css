@@ -1,0 +1,295 @@
+:root {
+  --pink: #ff70ad;
+  --blush: #ffd8ea;
+  --lavender: #d9b8ff;
+  --purple: #9b5de5;
+  --deep: #140816;
+  --deep-soft: #211126;
+  --paper: #fffaf5;
+  --ink: #3e2647;
+  --muted: #806888;
+  --white: #fffaff;
+  --glass: rgba(255, 255, 255, 0.22);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --shadow: 0 1.8rem 4.5rem rgba(90, 35, 110, 0.18);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  overflow-x: hidden;
+  color: var(--ink);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  background:
+    radial-gradient(circle at 16% 12%, rgba(255, 216, 234, 0.9), transparent 20rem),
+    radial-gradient(circle at 84% 6%, rgba(217, 184, 255, 0.72), transparent 22rem),
+    linear-gradient(145deg, #fff8fc 0%, #ffe5f2 46%, #f4e5ff 100%);
+  transition: background 1s ease;
+}
+
+body.is-dark {
+  color: var(--white);
+  background:
+    radial-gradient(circle at 50% 20%, rgba(155, 93, 229, 0.18), transparent 20rem),
+    linear-gradient(180deg, #130714 0%, #080509 100%);
+}
+
+button, a {
+  font: inherit;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Ambient Layer */
+.ambient,
+.particle-layer {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ambient {
+  z-index: 0;
+}
+
+.particle-layer {
+  z-index: 1;
+}
+
+.aura {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(40px);
+  opacity: 0.6;
+  animation: auraDrift 16s ease-in-out infinite alternate;
+}
+
+.aura-one {
+  width: 16rem;
+  height: 16rem;
+  left: -5rem;
+  top: 8rem;
+  background: rgba(255, 112, 173, 0.3);
+}
+
+.aura-two {
+  width: 20rem;
+  height: 20rem;
+  right: -7rem;
+  top: 25%;
+  background: rgba(155, 93, 229, 0.24);
+  animation-delay: -4s;
+}
+
+.aura-three {
+  width: 14rem;
+  height: 14rem;
+  left: 20%;
+  bottom: -5rem;
+  background: rgba(255, 255, 255, 0.6);
+  animation-delay: -8s;
+}
+
+.particle {
+  position: absolute;
+  color: rgba(255, 112, 173, 0.6);
+  font-size: 0.85rem;
+  animation: floatParticle linear infinite;
+}
+
+/* Glassmorphism Capsule Button */
+.primary-button,
+.secondary-button {
+  min-width: 12rem;
+  min-height: 3.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 0;
+  border-radius: 999px;
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  box-shadow: 0 0.8rem 2rem rgba(155, 93, 229, 0.25);
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+  user-select: none;
+}
+
+.primary-button:hover,
+.secondary-button:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 1.2rem 2.5rem rgba(155, 93, 229, 0.35);
+}
+
+.primary-button:active,
+.secondary-button:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+.secondary-button:focus-visible,
+.primary-button:focus-visible {
+  outline: 3px solid rgba(155, 93, 229, 0.48);
+  outline-offset: 6px;
+}
+
+/* Progress Indicator */
+.progress-indicator {
+  position: fixed;
+  top: 1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 0.5rem 2rem rgba(90, 35, 110, 0.08);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #724c7a;
+  letter-spacing: 0.03em;
+  pointer-events: none;
+  animation: arriveSoftly 800ms ease both;
+}
+
+body.is-dark .progress-indicator {
+  color: var(--blush);
+  background: rgba(33, 17, 38, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.3);
+}
+
+/* Page Transition Overlay */
+.page-transition-overlay {
+  position: fixed;
+  inset: 0;
+  background: #140816;
+  z-index: 9999;
+  opacity: 1; /* Starts full screen cover, fades out on load */
+  pointer-events: all;
+  transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.page-transition-overlay.is-loaded {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.page-transition-overlay.is-exiting {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Main Container Transition */
+main.journey {
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+main.journey.is-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Ambient Animations */
+@keyframes auraDrift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(1.5rem, -1.5rem, 0) scale(1.08);
+  }
+}
+
+@keyframes floatParticle {
+  from {
+    opacity: 0;
+    transform: translateY(105vh) rotate(0deg);
+  }
+  15%, 85% {
+    opacity: 0.8;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10vh) rotate(360deg);
+  }
+}
+
+@keyframes arriveSoftly {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* Base mobile-first aura sizes */
+.aura-one {
+  width: 10rem;
+  height: 10rem;
+  left: -3rem;
+  top: 5rem;
+  background: rgba(255, 112, 173, 0.25);
+}
+
+.aura-two {
+  width: 12rem;
+  height: 12rem;
+  right: -4rem;
+  top: 30%;
+  background: rgba(155, 93, 229, 0.2);
+  animation-delay: -4s;
+}
+
+.aura-three {
+  width: 8rem;
+  height: 8rem;
+  left: 10%;
+  bottom: -3rem;
+  background: rgba(255, 255, 255, 0.45);
+  animation-delay: -8s;
+}
+
+/* Tablet & Desktop upscale */
+@media (min-width: 768px) {
+  .aura-one { width: 16rem; height: 16rem; left: -5rem; top: 8rem; }
+  .aura-two { width: 20rem; height: 20rem; right: -7rem; }
+  .aura-three { width: 14rem; height: 14rem; bottom: -5rem; }
+}
+
+/* Respect user preferences for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+}

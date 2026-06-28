@@ -1,0 +1,171 @@
+.letter-level {
+  min-height: 100svh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 1rem 2rem;
+  z-index: 2;
+  position: relative;
+}
+
+.letter-shell {
+  width: 100%;
+  max-width: 26rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Notebook Ruled Paper simulation */
+.paper-card {
+  position: relative;
+  width: 100%;
+  padding: clamp(1.4rem, 6vw, 2.2rem) clamp(1rem, 4vw, 1.8rem);
+  padding-left: clamp(2rem, 8vw, 3rem); /* Margin space for holes and red line */
+  border-radius: 1.2rem;
+  color: #38263d;
+  background-color: #fffcf7;
+  
+  /* Notebook paper background graphics: Red vertical line and horizontal blue lines */
+  background-image: 
+    linear-gradient(90deg, rgba(239, 90, 165, 0.3) 1px, transparent 1px),
+    linear-gradient(rgba(155, 93, 229, 0.08) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 2.2rem;
+  background-position: clamp(1.6rem, 6.5vw, 2.5rem) 0, 0 0.8rem;
+  background-repeat: no-repeat, repeat;
+  
+  box-shadow: 
+    0 1.2rem 3rem rgba(0, 0, 0, 0.3), 
+    0 0.2rem 0.5rem rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+  border: 1px solid #f2e3d5;
+  transform: rotate(-0.5deg);
+  opacity: 0;
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+/* Notebook Ring Binder Holes */
+.paper-card::before {
+  content: "";
+  position: absolute;
+  top: 0.8rem;
+  bottom: 0.8rem;
+  left: clamp(0.5rem, 2.2vw, 0.8rem);
+  width: 0.6rem;
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.12) 0.2rem, transparent 0.24rem);
+  background-size: 100% 2.2rem;
+  background-position: 0 0;
+  z-index: 10;
+}
+
+.paper-card.is-visible {
+  opacity: 1;
+  transform: translateY(0) rotate(-0.2deg);
+}
+
+.level-kicker {
+  margin: 0 0 0.4rem 0;
+  color: #b84f98;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.paper-card h2 {
+  margin: 0 0 0.8rem 0;
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(2rem, 8vw, 3.2rem);
+  font-weight: 400;
+  color: #211126;
+  line-height: 1.2;
+}
+
+.typed-letter {
+  min-height: 12rem;
+  margin: 1.2rem 0;
+  color: #4b3652;
+  font-family: "Caveat", cursive;
+  font-size: clamp(1.4rem, 5vw, 1.65rem);
+  font-weight: 600;
+  line-height: 2.2rem; /* Perfectly aligned to notebook rules */
+  white-space: pre-wrap;
+  padding-top: 0.15rem;
+}
+
+/* Ruled typewriter caret blink */
+.typed-letter::after {
+  content: "";
+  display: inline-block;
+  width: 0.4rem;
+  height: 1.1em;
+  margin-left: 0.2rem;
+  vertical-align: -0.15em;
+  background: var(--pink);
+  animation: blinkCaret 0.8s steps(2, start) infinite;
+}
+
+.typed-letter.typing-done::after {
+  display: none;
+}
+
+.letter-signature {
+  display: block;
+  color: var(--purple);
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(2rem, 8vw, 2.6rem);
+  text-align: right;
+  margin-top: 1rem;
+  padding-right: 0.5rem;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.letter-signature.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.paper-button {
+  display: flex;
+  margin: 2rem auto 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.paper-button.is-visible {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+
+@keyframes blinkCaret {
+  50% { opacity: 0; }
+}
+
+/* Desktop & Tablet Scales */
+@media (min-width: 768px) {
+  .letter-shell {
+    max-width: 42rem;
+  }
+  
+  .paper-card {
+    padding: 2.5rem 2rem;
+    padding-left: 4.5rem;
+    background-position: 3.5rem 0, 0 0.8rem;
+  }
+  
+  .paper-card::before {
+    left: 1.2rem;
+    width: 0.8rem;
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.12) 0.25rem, transparent 0.3rem);
+  }
+  
+  .typed-letter {
+    font-size: 1.75rem;
+    min-height: 16rem;
+  }
+}

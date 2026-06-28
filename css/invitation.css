@@ -1,0 +1,193 @@
+.invitation-level {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  position: relative;
+  z-index: 2;
+}
+
+.invitation-card {
+  width: min(100%, 24rem);
+  min-height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(1.2rem, 5vw, 1.8rem);
+  padding: clamp(1.5rem, 6vw, 3rem) clamp(1.2rem, 5vw, 2.2rem);
+  text-align: center;
+  border-radius: 2rem;
+  border: 1px solid var(--glass-border);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+  box-shadow: 0 1.5rem 3.5rem rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  animation: cardArrive 1.2s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+.level-kicker {
+  margin: 0;
+  color: var(--pink);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(2.4rem, 11vw, 3.8rem);
+  font-weight: 400;
+  margin: 0;
+  line-height: 1.15;
+  color: var(--white);
+  text-shadow: 0 0 15px rgba(255, 112, 173, 0.35);
+}
+
+.soft-copy {
+  margin: 0;
+  color: var(--blush);
+  opacity: 0.85;
+  font-size: clamp(1.3rem, 5vw, 1.6rem);
+  line-height: 1.4;
+  max-width: 25ch;
+  font-family: "Caveat", cursive;
+}
+
+.gift-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1rem, 4vw, 1.5rem);
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  padding: 0;
+  width: 100%;
+}
+
+/* Premium Luxury Sliced Gift Box Container */
+.luxury-gift {
+  position: relative;
+  display: block;
+  width: clamp(12rem, 48vw, 15.5rem);
+  height: clamp(12rem, 48vw, 15.5rem);
+  aspect-ratio: 1;
+  margin: 0 auto;
+}
+
+.gift-slice {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 1.8s cubic-bezier(0.25, 1, 0.3, 1), opacity 1.4s ease;
+  pointer-events: none;
+}
+
+/* Precise Slice Coordinates based on gold bow & box structure */
+.gift-lid-img {
+  clip-path: inset(0 0 48.5% 0); /* Holds top 51.5% (the lid and the golden bow) */
+  z-index: 3;
+  transform-origin: 15% 50%;
+}
+
+.gift-body-img {
+  clip-path: inset(51.5% 0 0 0); /* Holds bottom 48.5% (the velvet body) */
+  z-index: 1;
+}
+
+/* Warm Golden Glow from Inside */
+.gift-glow {
+  position: absolute;
+  top: 51.5%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.1);
+  width: 60%;
+  height: 35%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 195, 75, 0.95) 0%, rgba(255, 112, 173, 0.4) 45%, transparent 70%);
+  filter: blur(8px);
+  opacity: 0;
+  z-index: 2;
+  transition: transform 2s cubic-bezier(0.25, 1, 0.3, 1), opacity 1.5s ease;
+  pointer-events: none;
+}
+
+/* Sparkles upward drift animation */
+.gold-sparkle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0;
+  text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+  animation: floatSparkle cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* Opening Animations */
+.gift-button.is-open .gift-lid-img {
+  /* Ribbon loosens and lid slowly lifts away to the side */
+  transform: translate(-2.2rem, -5rem) rotate(-18deg) scale(0.92);
+  opacity: 0;
+}
+
+.gift-button.is-open .gift-body-img {
+  transform: translateY(0.4rem);
+  opacity: 0.8;
+}
+
+.gift-button.is-open .gift-glow {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(2.2);
+}
+
+/* Upscale layouts for desktop/tablets */
+@media (min-width: 768px) {
+  .invitation-card {
+    width: min(92vw, 34rem);
+    min-height: min(42rem, 80svh);
+    padding: 3rem 2.5rem;
+    gap: 1.8rem;
+  }
+  
+  .luxury-gift {
+    width: 19rem;
+    height: 19rem;
+  }
+  
+  .gift-button {
+    margin-top: 1rem;
+  }
+}
+
+@keyframes cardArrive {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatSparkle {
+  0% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--startX)), calc(-50% + var(--startY))) scale(0.2);
+  }
+  15% {
+    opacity: 1;
+    transform: translate(calc(-50% + var(--startX)), calc(-50% + var(--startY))) scale(1.3);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--startX) + var(--moveX)), calc(-50% + var(--startY) + var(--moveY))) scale(0.3) rotate(220deg);
+  }
+}
