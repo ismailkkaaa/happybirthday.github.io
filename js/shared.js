@@ -132,18 +132,8 @@ function initBackgroundMusic() {
   }
 
   if (isPlaying === "true") {
-    // If we are on story.html and this is the first play attempt (time is 0), wait for first user interaction
-    if (path.includes("story.html") && parseFloat(savedTime || "0") === 0) {
-      const startOnInteraction = () => {
-        attemptPlayMusic();
-        document.removeEventListener("click", startOnInteraction);
-        document.removeEventListener("touchstart", startOnInteraction);
-      };
-      document.addEventListener("click", startOnInteraction);
-      document.addEventListener("touchstart", startOnInteraction);
-    } else {
-      attemptPlayMusic();
-    }
+    const isFirstStoryPlay = path.includes("story.html") && parseFloat(savedTime || "0") === 0;
+    attemptPlayMusic(isFirstStoryPlay);
   }
 
   // Monitor playback time to trigger climax transition after 17 seconds
@@ -165,22 +155,57 @@ function startGlobalMusic() {
   }
 }
 
-function attemptPlayMusic() {
+function attemptPlayMusic(forceWait = false) {
   if (!audioInstance) return;
-  audioInstance.play().then(() => {
-    // Audio started successfully
-  }).catch(() => {
-    console.log("Autoplay blocked. Waiting for first click/tap to resume music.");
-    const resumeOnInteraction = () => {
-      if (audioInstance) {
-        audioInstance.play().catch(e => console.log("Play failed: ", e));
-      }
-      document.removeEventListener("click", resumeOnInteraction);
-      document.removeEventListener("touchstart", resumeOnInteraction);
-    };
-    document.addEventListener("click", resumeOnInteraction);
-    document.addEventListener("touchstart", resumeOnInteraction);
-  });
+
+  // Enhance iOS compatibility configurations
+  audioInstance.setAttribute("playsinline", "true");
+  audioInstance.setAttribute("webkit-playsinline", "true");
+
+  const tryPlay = () => {
+    audioInstance.play()
+      .then(() => {
+        console.log("Playback successfully started/unlocked on interaction!");
+        removeUnlockListeners();
+      })
+      .catch((error) => {
+        console.log("Playback attempt blocked: ", error.message);
+        // Playback failed, listeners remain attached to retry on next user action
+      });
+  };
+
+  const unlockEvents = ["click", "touchstart", "pointerdown", "keydown", "scroll"];
+
+  const handleInteraction = () => {
+    tryPlay();
+  };
+
+  const removeUnlockListeners = () => {
+    unlockEvents.forEach((evt) => {
+      document.removeEventListener(evt, handleInteraction, { passive: true });
+    });
+  };
+
+  const addUnlockListeners = () => {
+    unlockEvents.forEach((evt) => {
+      document.addEventListener(evt, handleInteraction, { passive: true });
+    });
+  };
+
+  if (forceWait) {
+    console.log("Audio waiting for first interaction gesture.");
+    addUnlockListeners();
+  } else {
+    // Attempt playing immediately (standard unlock restore)
+    audioInstance.play()
+      .then(() => {
+        console.log("Audio played immediately successfully!");
+      })
+      .catch((error) => {
+        console.log("Autoplay blocked immediately. Registering unlock gesture handlers: ", error.message);
+        addUnlockListeners();
+      });
+  }
 }
 
 // Page Transition Helper
