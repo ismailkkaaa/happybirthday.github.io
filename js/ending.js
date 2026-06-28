@@ -95,6 +95,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 6000);
   }
 
+  function getEndingLineWithIcon(line) {
+    if (!line) return "";
+    if (line.includes("❤️")) {
+      return `${line.replace("❤️", "")} <span style="color: #ff527c; display: inline-flex; align-items: center; vertical-align: middle; margin-left: 0.4rem; margin-top: -0.25rem;"><svg viewBox="0 0 24 24" fill="currentColor" style="width: 2.2rem; height: 2.2rem;"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>`;
+    }
+    return line;
+  }
+
   // 3. Play ending sequence (fade sentences one by one with drift transitions)
   function playTextSequence() {
     let lineIndex = 0;
@@ -102,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const nextLine = () => {
       // 1. Trigger exit/leaving animation for previous sentence
       endingLine.classList.remove("is-visible");
-      if (endingLine.textContent) {
+      if (endingLine.innerHTML) {
         endingLine.classList.add("is-leaving");
       }
 
@@ -113,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (lineIndex < endingLines.length) {
           // Set data-index attribute to trigger unique CSS animations for each slide
           endingLine.setAttribute("data-index", lineIndex + 1);
-          endingLine.textContent = endingLines[lineIndex];
+          endingLine.innerHTML = getEndingLineWithIcon(endingLines[lineIndex]);
           endingLine.classList.add("is-visible");
           lineIndex++;
           
@@ -121,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
           setTimeout(nextLine, 3600);
         } else {
           // Fade out final sentence completely
-          endingLine.textContent = "";
+          endingLine.innerHTML = "";
           
           // Wait 2 seconds, then show the permanent final note
           setTimeout(() => {

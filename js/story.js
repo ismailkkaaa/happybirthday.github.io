@@ -35,6 +35,29 @@ document.addEventListener("DOMContentLoaded", () => {
     return gradients[fallbackIndex % gradients.length];
   }
 
+  function getTitleWithIcon(title) {
+    if (!title) return "";
+    if (title.startsWith("✨")) {
+      return `<svg class="title-icon inline-sparkle-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width: 1.6rem; height: 1.6rem; vertical-align: middle; margin-right: 0.5rem; display: inline-block; color: #ffb347; margin-top: -0.2rem;"><path d="M12 2l2.4 5.2 5.6 2.4-5.6 2.4-2.4 5.2-2.4-5.2-5.6-2.4 5.6-2.4zM20 16l1.2 2.6 2.8 1.2-2.8 1.2-1.2 2.6-1.2-2.6-2.8-1.2 2.8-1.2zM6 15l1.2 2.6 2.8 1.2-2.8 1.2-1.2 2.6-1.2-2.6-2.8-1.2 2.8-1.2z"/></svg>${title.substring(2)}`;
+    }
+    if (title.startsWith("🌸")) {
+      return `<svg class="title-icon inline-flower-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width: 1.6rem; height: 1.6rem; vertical-align: middle; margin-right: 0.5rem; display: inline-block; color: #ffabd0; margin-top: -0.2rem;"><path d="M12 2c-.55 0-1 .45-1 1v1.1c-.6-.06-1.22-.06-1.82 0l-.77-1.1c-.32-.45-.94-.57-1.4-.25s-.57.94-.25 1.4l.72 1.03c-.48.33-.92.73-1.3 1.18L5.14 4.34c-.38-.4-.99-.44-1.4-.06s-.44.99-.06 1.4l1.04 1.1c-.32.48-.59.99-.8 1.54l-1.32-.44c-.52-.17-1.1.1-1.27.62-.17.52.1 1.1.62 1.27l1.37.46c-.05.58-.05 1.18 0 1.76l-1.37.46c-.52.17-.8.75-.62 1.27.13.4.51.65.91.65.12 0 .24-.02.36-.06l1.32-.44c.21.55.48 1.06.8 1.54l-1.04 1.1c-.38.4-.35 1.02.06 1.4.2.19.46.29.72.29.24 0 .49-.09.68-.27l1.04-1.02c.38.45.82.85 1.3 1.18l-.72 1.03c-.32.46-.2 1.08.25 1.4.19.13.4.2.62.2.32 0 .63-.15.8-.4L10.18 19.9c.6.06 1.22.06 1.82 0l.77 1.1c.17.25.48.4.8.4.22 0 .43-.07.62-.2.45-.32.57-.94.25-1.4l-.72-1.03c.48-.33.92-.73 1.3-1.18l1.04 1.02c.19.18.44.27.68.27.26 0 .52-.1.72-.29.41-.38.44-1 .06-1.4l-1.04-1.1c.32-.48.59-.99.8-1.54l1.32.44c.12.04.24.06.36.06.4 0 .78-.25.91-.65.17-.52-.11-1.1-.62-1.27l-1.37-.46c.05-.58.05-1.18 0-1.76l1.37-.46c.52-.17.8-.75.62-1.27-.17-.52-.75-.8-1.27-.62l-1.32.44c-.21-.55-.48-1.06-.8-1.54l1.04-1.1c.38-.4.35-1.02-.06-1.4s-1.02-.35-1.4.06l-1.04 1.02c-.38-.45-.82-.85-1.3-1.18l.72-1.03c.32-.46.2-1.08-.25-1.4s-1.08-.2-1.4.25l-.77 1.1c-.6-.06-1.22-.06-1.82 0V3c0-.55-.45-1-1-1zm0 7c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z"/></svg>${title.substring(2)}`;
+    }
+    if (title.startsWith("📸")) {
+      return `<svg class="title-icon inline-camera-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width: 1.6rem; height: 1.6rem; vertical-align: middle; margin-right: 0.5rem; display: inline-block; color: #a3b8cc; margin-top: -0.2rem;"><path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>${title.substring(2)}`;
+    }
+    if (title.startsWith("😂")) {
+      return `<svg class="title-icon inline-laugh-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width: 1.6rem; height: 1.6rem; vertical-align: middle; margin-right: 0.5rem; display: inline-block; color: #ffb347; margin-top: -0.2rem;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-9c.83 0 1.5-.67 1.5-1.5S7.83 8 7 8s-1.5.67-1.5 1.5S6.17 11 7 11zm10 0c.83 0 1.5-.67 1.5-1.5S17.83 8 17 8s-1.5.67-1.5 1.5.67 1.5 1.5 1.5zm-5 6c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>${title.substring(2)}`;
+    }
+    if (title.startsWith("❤️")) {
+      return `<svg class="title-icon inline-heart-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width: 1.6rem; height: 1.6rem; vertical-align: middle; margin-right: 0.5rem; display: inline-block; color: #ff527c; margin-top: -0.2rem;"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>${title.substring(2)}`;
+    }
+    if (title.startsWith("🌙")) {
+      return `<svg class="title-icon inline-moon-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width: 1.6rem; height: 1.6rem; vertical-align: middle; margin-right: 0.5rem; display: inline-block; color: #d0c4de; margin-top: -0.2rem;"><path d="M12.1 22C6.52 22 2 17.48 2 11.9c0-4.75 3.27-8.73 7.82-9.72.5-.1 1 .2 1.2.7.2.5.1 1.1-.3 1.4-2.8 2-4.4 5.2-4.4 8.7 0 5 4 9 9 9 2.5 0 4.8-1 6.5-2.8.4-.4.9-.5 1.4-.3.5.2.8.7.7 1.2-.9 4.6-4.9 7.9-9.8 7.9z"/></svg>${title.substring(2)}`;
+    }
+    return title;
+  }
+
   function renderStories() {
     slidesWrapper.innerHTML = "";
     progressBarContainer.innerHTML = "";
@@ -58,11 +81,14 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="slide-bg${bgClass}" style="--photo-bg: ${photoBackground(item.photo, index)}"></div>
         ${hasPhoto ? `<img src="${item.photo}" alt="${item.title}" class="slide-photo" />` : ""}
         <div class="slide-overlay">
-          <h3>${item.title}</h3>
+          <h3>${getTitleWithIcon(item.title)}</h3>
           <p>${item.text}</p>
           ${index === timelineData.length - 1 ? `
             <div class="final-action-card">
-              <button id="openLetterBtn" class="primary-button" type="button">Read the Letter 💌</button>
+              <button id="openLetterBtn" class="primary-button" type="button" style="display: inline-flex; align-items: center; justify-content: center; margin: 1.5rem auto 0;">
+                Read the Letter 
+                <svg viewBox="0 0 24 24" fill="currentColor" style="width: 1.15rem; height: 1.15rem; margin-left: 0.4rem; display: inline-block; vertical-align: middle;"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+              </button>
             </div>
           ` : ""}
         </div>

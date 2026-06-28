@@ -7,10 +7,10 @@ const BirthdayConfig = {
   // Chapter 2 - Memory Hunt Settings
   correctGiftIndex: 2, // 0-4 index of correct box
   wrongGiftMessages: [
-    "Not this one 🤭",
-    "Try again princess 💕",
-    "Almost there ❤️",
-    "Keep looking ✨"
+    "Not this one",
+    "Try again princess",
+    "Almost there",
+    "Keep looking"
   ],
 
   // Chapter 3 - Our Story Timeline Settings

@@ -84,6 +84,23 @@ document.addEventListener("DOMContentLoaded", () => {
     return gradients[fallbackIndex % gradients.length];
   }
 
+  function getCaptionWithIcon(caption) {
+    if (!caption) return "";
+    if (caption.includes("✨")) {
+      return `${caption.replace("✨", "")} <svg class="caption-icon inline-sparkle-icon" viewBox="0 0 24 24" fill="currentColor" style="width: 1.15rem; height: 1.15rem; vertical-align: middle; margin-left: 0.2rem; color: #ffb347; display: inline-block; margin-top: -0.15rem;"><path d="M12 2l2.4 5.2 5.6 2.4-5.6 2.4-2.4 5.2-2.4-5.2-5.6-2.4 5.6-2.4zM20 16l1.2 2.6 2.8 1.2-2.8 1.2-1.2 2.6-1.2-2.6-2.8-1.2 2.8-1.2zM6 15l1.2 2.6 2.8 1.2-2.8 1.2-1.2 2.6-1.2-2.6-2.8-1.2 2.8-1.2z"/></svg>`;
+    }
+    if (caption.includes("📸")) {
+      return `${caption.replace("📸", "")} <svg class="caption-icon inline-camera-icon" viewBox="0 0 24 24" fill="currentColor" style="width: 1.15rem; height: 1.15rem; vertical-align: middle; margin-left: 0.2rem; color: #a3b8cc; display: inline-block; margin-top: -0.15rem;"><path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>`;
+    }
+    if (caption.includes("❤️")) {
+      return `${caption.replace("❤️", "")} <svg class="caption-icon inline-heart-icon" viewBox="0 0 24 24" fill="currentColor" style="width: 1.15rem; height: 1.15rem; vertical-align: middle; margin-left: 0.2rem; color: #ff527c; display: inline-block; margin-top: -0.15rem;"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
+    }
+    if (caption.includes("🌙")) {
+      return `${caption.replace("🌙", "")} <svg class="caption-icon inline-moon-icon" viewBox="0 0 24 24" fill="currentColor" style="width: 1.15rem; height: 1.15rem; vertical-align: middle; margin-left: 0.2rem; color: #d0c4de; display: inline-block; margin-top: -0.15rem;"><path d="M12.1 22C6.52 22 2 17.48 2 11.9c0-4.75 3.27-8.73 7.82-9.72.5-.1 1 .2 1.2.7.2.5.1 1.1-.3 1.4-2.8 2-4.4 5.2-4.4 8.7 0 5 4 9 9 9 2.5 0 4.8-1 6.5-2.8.4-.4.9-.5 1.4-.3.5.2.8.7.7 1.2-.9 4.6-4.9 7.9-9.8 7.9z"/></svg>`;
+    }
+    return caption;
+  }
+
   function createFloatingMemories() {
     if (!floatingMemories) return;
     floatingMemories.innerHTML = "";
@@ -107,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
       card.style.setProperty("--rotate", pos.rotate);
       card.innerHTML = `
         <div class="photo-img" style="background-image: ${photoBackground(memory.photo, index)};"></div>
-        <span>${memory.caption}</span>
+        <span>${getCaptionWithIcon(memory.caption)}</span>
       `;
       
       // Polaroid tap-to-zoom logic
