@@ -44,11 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
       spawnGoldSparkles(boxContainer);
     }
 
-    // Start background music as the emotional climax of the experience
-    if (typeof startGlobalMusic === "function") {
-      startGlobalMusic();
-    }
-
     // Start sparkles and confetti
     startConfetti();
 

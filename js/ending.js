@@ -135,6 +135,13 @@ document.addEventListener("DOMContentLoaded", () => {
           setTimeout(() => {
             if (finalNote) {
               finalNote.classList.add("is-visible");
+              
+              // Fade out the background music volume smoothly after 5 seconds
+              setTimeout(() => {
+                if (typeof fadeOutMusic === "function") {
+                  fadeOutMusic(3000); // 3-second gentle fade out
+                }
+              }, 5000);
             }
           }, 2000);
         }

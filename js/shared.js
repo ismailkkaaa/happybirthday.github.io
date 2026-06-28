@@ -77,10 +77,32 @@ function createAmbientParticles() {
 function initBackgroundMusic() {
   if (typeof BirthdayConfig === "undefined" || !BirthdayConfig.musicUrl) return;
 
-  // Restrict background music loading to surprise.html (the climax) and ending.html
   const path = window.location.pathname;
-  const isSurpriseOrEnding = path.includes("surprise.html") || path.includes("ending.html");
-  if (!isSurpriseOrEnding) return;
+
+  // Clear audio states on early silent levels (Chapters 1 & 2)
+  const isEarlyPage = path.includes("index.html") || path.includes("gift.html") || path === "/" || path === "";
+  if (isEarlyPage) {
+    sessionStorage.removeItem("musicPlaying");
+    sessionStorage.removeItem("musicTime");
+    sessionStorage.removeItem("volumeIncreased");
+    sessionStorage.removeItem("musicInitialized");
+    return;
+  }
+
+  // Restrict background music loading to story, letter, surprise, ending (Chapters 3 to 6)
+  const isMusicPage = path.includes("story.html") || 
+                      path.includes("letter.html") || 
+                      path.includes("surprise.html") || 
+                      path.includes("ending.html");
+  if (!isMusicPage) return;
+
+  // Initialize playback state when story.html opens
+  if (path.includes("story.html") && !sessionStorage.getItem("musicInitialized")) {
+    sessionStorage.setItem("musicPlaying", "true");
+    sessionStorage.setItem("musicTime", "0");
+    sessionStorage.setItem("volumeIncreased", "false");
+    sessionStorage.setItem("musicInitialized", "true");
+  }
 
   let audio = document.getElementById("global-background-music");
   if (!audio) {
@@ -95,22 +117,33 @@ function initBackgroundMusic() {
 
   const savedTime = sessionStorage.getItem("musicTime");
   const isPlaying = sessionStorage.getItem("musicPlaying");
+  const volumeIncreased = sessionStorage.getItem("volumeIncreased") === "true";
 
   if (savedTime) {
     audio.currentTime = parseFloat(savedTime);
   }
 
-  // Set default gentle volume
-  audio.volume = 0.28;
+  // Set volume based on persistent progress
+  if (volumeIncreased || audio.currentTime >= 17) {
+    audio.volume = 0.75;
+    sessionStorage.setItem("volumeIncreased", "true");
+  } else {
+    audio.volume = 0.15;
+  }
 
-  // Autoplay only on ending.html or if already explicitly triggered on surprise.html (upon opening the box)
-  if (isPlaying === "true" || path.includes("ending.html")) {
+  if (isPlaying === "true") {
     attemptPlayMusic();
   }
 
-  // Continually update sessionStorage to prevent sync loss on unexpected exit
+  // Monitor playback time to trigger climax transition after 17 seconds
   audio.addEventListener("timeupdate", () => {
     sessionStorage.setItem("musicTime", audio.currentTime);
+    
+    const hasIncreased = sessionStorage.getItem("volumeIncreased") === "true";
+    if (audio.currentTime >= 17 && !hasIncreased) {
+      sessionStorage.setItem("volumeIncreased", "true");
+      fadeVolume(0.15, 0.75, 2500); // Fades volume from 15% to 75% over 2.5s
+    }
   });
 }
 
@@ -170,14 +203,22 @@ function fadeOutMusic(duration = 1000) {
     } else {
       audioInstance.volume = 0;
       audioInstance.pause();
+      sessionStorage.setItem("musicPlaying", "false");
       clearInterval(timer);
     }
   }, interval);
 }
 
-function fadeInMusic(targetVolume = 0.28, duration = 1000) {
+function fadeInMusic(targetVolume, duration = 1000) {
   if (!audioInstance) return;
+
+  if (targetVolume === undefined) {
+    const volumeIncreased = sessionStorage.getItem("volumeIncreased") === "true";
+    targetVolume = volumeIncreased ? 0.75 : 0.15;
+  }
+
   audioInstance.volume = 0;
+  sessionStorage.setItem("musicPlaying", "true");
   audioInstance.play().then(() => {
     const interval = 50;
     const steps = duration / interval;
@@ -192,4 +233,24 @@ function fadeInMusic(targetVolume = 0.28, duration = 1000) {
       }
     }, interval);
   }).catch(e => console.log(e));
+}
+
+// Volume fade progression helper (linear transition between two levels)
+function fadeVolume(start, end, duration = 2500) {
+  if (!audioInstance) return;
+  const interval = 50;
+  const steps = duration / interval;
+  const delta = (end - start) / steps;
+  let currentVolume = start;
+  audioInstance.volume = currentVolume;
+
+  const timer = setInterval(() => {
+    currentVolume += delta;
+    if ((delta > 0 && currentVolume >= end) || (delta < 0 && currentVolume <= end)) {
+      audioInstance.volume = end;
+      clearInterval(timer);
+    } else {
+      audioInstance.volume = Math.max(0, Math.min(1, currentVolume));
+    }
+  }, interval);
 }
