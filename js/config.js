@@ -1,7 +1,7 @@
 const BirthdayConfig = {
   // Global Settings
   birthdayPersonName: "Princess",
-  musicUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", // Fallback royalty-free beautiful track
+  musicUrl: "0628.MP3", // Custom soundtrack file
   voiceNoteUrl: "", // Optional voice note audio file path (e.g. "assets/audio/voice.mp3")
 
   // Chapter 2 - Memory Hunt Settings
