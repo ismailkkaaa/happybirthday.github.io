@@ -132,7 +132,18 @@ function initBackgroundMusic() {
   }
 
   if (isPlaying === "true") {
-    attemptPlayMusic();
+    // If we are on story.html and this is the first play attempt (time is 0), wait for first user interaction
+    if (path.includes("story.html") && parseFloat(savedTime || "0") === 0) {
+      const startOnInteraction = () => {
+        attemptPlayMusic();
+        document.removeEventListener("click", startOnInteraction);
+        document.removeEventListener("touchstart", startOnInteraction);
+      };
+      document.addEventListener("click", startOnInteraction);
+      document.addEventListener("touchstart", startOnInteraction);
+    } else {
+      attemptPlayMusic();
+    }
   }
 
   // Monitor playback time to trigger climax transition after 17 seconds
