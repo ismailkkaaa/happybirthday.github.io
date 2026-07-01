@@ -293,9 +293,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       if (typeof navigateWithTransition === "function") {
-        navigateWithTransition("ending.html");
+        navigateWithTransition("wish.html");
       } else {
-        window.location.href = "ending.html";
+        window.location.href = "wish.html";
       }
     });
   }

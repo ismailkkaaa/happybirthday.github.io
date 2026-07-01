@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Close your eyes and make a special birthday wish." />
+    <title>Make A Wish ✦</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/shared.css" />
+    <link rel="stylesheet" href="css/wish.css" />
+  </head>
+  <body class="is-dark">
+    <main class="journey" data-chapter="6">
+      <section class="wish-level" aria-label="Make a wish">
+        <div id="wishFlash" class="wish-overlay-flash" aria-hidden="true"></div>
+
+        <!-- Sequential text prompt slides -->
+        <div class="wish-prompt-container">
+          <p id="wishPrompt" class="wish-prompt"></p>
+        </div>
+
+        <!-- Birthday Cake Area (transitions in after text slides complete) -->
+        <div class="cake-section" id="cakeSection">
+          <div class="cake-container">
+            <!-- Gourmet Birthday Cake SVG illustration -->
+            <svg class="cake-svg" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+              <!-- Golden platter base -->
+              <ellipse cx="100" cy="185" rx="75" ry="12" fill="#ffd700" opacity="0.85" />
+              <ellipse cx="100" cy="183" rx="72" ry="10" fill="#ffffff" opacity="0.9" />
+              <ellipse cx="100" cy="183" rx="68" ry="8" fill="#ffd700" opacity="0.25" />
+              
+              <!-- Cake body base layer -->
+              <path d="M40,120 C40,120 40,175 40,175 C40,180 160,180 160,175 C160,175 160,120 160,120 Z" fill="#ffe5ee" />
+              
+              <!-- Frosted cake top surface -->
+              <ellipse cx="100" cy="120" rx="60" ry="12" fill="#fff0f5" />
+              
+              <!-- Drips or frosting design on the side -->
+              <path d="M40,120 C45,130 50,132 55,124 C60,120 65,135 70,126 C75,120 80,128 85,123 C90,120 95,132 100,124 C105,120 110,130 115,122 C120,120 125,128 130,123 C135,120 140,134 145,124 C150,120 155,125 160,120 C160,120 160,128 160,128 C155,132 150,128 145,134 C140,138 135,128 130,131 C125,134 120,128 115,130 C110,132 105,128 100,132 C95,135 90,128 85,131 C80,134 75,128 70,133 C65,136 60,128 55,131 C50,133 45,128 40,126 Z" fill="#ffccd8" opacity="0.95" />
+
+              <!-- Decorative white whipped cream drops -->
+              <circle cx="55" cy="118" r="4.5" fill="#ffffff" />
+              <circle cx="70" cy="122" r="5" fill="#ffffff" />
+              <circle cx="85" cy="124" r="5" fill="#ffffff" />
+              <circle cx="100" cy="125" r="5.5" fill="#ffffff" />
+              <circle cx="115" cy="124" r="5" fill="#ffffff" />
+              <circle cx="130" cy="122" r="5" fill="#ffffff" />
+              <circle cx="145" cy="118" r="4.5" fill="#ffffff" />
+              
+              <!-- Striped gold candle stick -->
+              <rect x="97" y="65" width="6" height="45" rx="2.5" fill="#ffd700" />
+              <line x1="97" y1="75" x2="103" y2="70" stroke="#ffffff" stroke-width="2" />
+              <line x1="97" y1="88" x2="103" y2="83" stroke="#ffffff" stroke-width="2" />
+              <line x1="97" y1="101" x2="103" y2="96" stroke="#ffffff" stroke-width="2" />
+              
+              <!-- Candle wick -->
+              <line x1="100" y1="65" x2="100" y2="58" stroke="#222222" stroke-width="1.5" />
+            </svg>
+
+            <!-- HTML/CSS organic layered flickering flame -->
+            <div class="flame-wrapper" id="candleFlame">
+              <div class="flame-outer"></div>
+              <div class="flame-inner"></div>
+              <div class="flame-core"></div>
+            </div>
+
+            <!-- Blowout Smoke Trail -->
+            <div class="smoke-trail" id="smokeTrail"></div>
+          </div>
+
+          <!-- Interaction Actions -->
+          <div class="wish-action-card">
+            <!-- iOS permission / start trigger -->
+            <button id="startWishBtn" class="primary-button action-btn" type="button">
+              Start Wishing
+            </button>
+            
+            <!-- Desktop fallback action button -->
+            <button id="blowCandleBtn" class="primary-button action-btn is-hidden" type="button">
+              Blow Out Candle
+            </button>
+            
+            <!-- Mobile accelerometer instructions -->
+            <p id="shakeInstruction" class="shake-instruction is-hidden">
+              Now close your eyes, make a wish,<br>and gently shake your phone.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="js/config.js"></script>
+    <script src="js/shared.js"></script>
+    <script src="js/wish.js"></script>
+  </body>
+</html>

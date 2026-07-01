@@ -1,0 +1,301 @@
+.wish-level {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem 1.5rem;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  background-color: #0b070d;
+}
+
+/* Warm candle-lit room ambience vignette */
+.wish-level::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center 50%, transparent 10%, rgba(5, 2, 7, 0.96) 88%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Flash overlay on successful blowout */
+.wish-overlay-flash {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255, 222, 185, 0.28) 0%, transparent 72%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 8;
+  transition: opacity 0.4s ease;
+}
+
+.wish-overlay-flash.is-active {
+  animation: successFlash 1.6s ease-out forwards;
+}
+
+@keyframes successFlash {
+  0% { opacity: 0; }
+  15% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Sequential text container */
+.wish-prompt-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 32rem;
+  text-align: center;
+  z-index: 5;
+}
+
+.wish-prompt {
+  margin: 0;
+  color: #fff6fa;
+  font-family: "Caveat", cursive;
+  font-size: clamp(1.8rem, 8vw, 3rem);
+  font-weight: 700;
+  line-height: 1.4;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.18);
+  opacity: 0;
+  filter: blur(10px);
+  transform: scale(0.95) translateY(10px);
+  transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1),
+              filter 1.5s cubic-bezier(0.25, 1, 0.5, 1),
+              transform 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.wish-prompt.is-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: scale(1) translateY(0);
+}
+
+.wish-prompt.is-leaving {
+  opacity: 0;
+  filter: blur(12px);
+  transform: scale(1.05) translateY(-10px);
+}
+
+/* Cake section wrap */
+.cake-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(20px) scale(0.96);
+  transition: opacity 2s cubic-bezier(0.25, 1, 0.5, 1),
+              transform 2s cubic-bezier(0.25, 1, 0.5, 1);
+  z-index: 3;
+}
+
+.cake-section.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.cake-container {
+  position: relative;
+  width: 200px;
+  height: 220px;
+  margin-bottom: 2rem;
+}
+
+.cake-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 12px 30px rgba(0, 0, 0, 0.65));
+}
+
+/* Interactive realistic flame */
+.flame-wrapper {
+  position: absolute;
+  left: 50%;
+  top: 45px; /* tip of the wick coordinate */
+  transform: translateX(-50%);
+  width: 16px;
+  height: 28px;
+  pointer-events: none;
+  transform-origin: center bottom;
+  animation: flicker 1.4s infinite alternate ease-in-out;
+  transition: transform 0.65s cubic-bezier(0.36, 0.07, 0.19, 0.97), 
+              opacity 0.65s ease;
+  z-index: 10;
+}
+
+.flame-wrapper.is-blown {
+  transform: translateX(-50%) scale(0) translateY(-12px);
+  opacity: 0;
+}
+
+@keyframes flicker {
+  0% { transform: translateX(-50%) scale(1) rotate(-1.5deg); }
+  25% { transform: translateX(-50%) scale(0.97) rotate(1deg) skewX(0.5deg); }
+  50% { transform: translateX(-50%) scale(1.03) rotate(-0.5deg) skewX(-0.5deg); }
+  75% { transform: translateX(-50%) scale(0.95) rotate(1.5deg) skewX(0.5deg); }
+  100% { transform: translateX(-50%) scale(1.01) rotate(0deg); }
+}
+
+.flame-outer {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center 60%, #ffd066 15%, #ff5e3a 65%, transparent 100%);
+  border-radius: 50% 50% 25% 25% / 60% 60% 40% 40%;
+  filter: blur(0.8px);
+  box-shadow: 0 0 20px rgba(255, 94, 58, 0.6);
+}
+
+.flame-inner {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 70%;
+  background: radial-gradient(circle at center bottom, #ffffff 10%, #ffd066 75%);
+  border-radius: 50% 50% 30% 30% / 60% 60% 40% 40%;
+  opacity: 0.95;
+}
+
+.flame-core {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 25%;
+  height: 35%;
+  background: #4a90e2;
+  border-radius: 50%;
+  opacity: 0.75;
+  filter: blur(0.5px);
+}
+
+/* Smoke trail blowout animation */
+.smoke-trail {
+  position: absolute;
+  left: 50%;
+  top: 45px;
+  width: 2px;
+  height: 0;
+  background: rgba(225, 225, 225, 0.5);
+  filter: blur(2.5px);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 9;
+}
+
+.smoke-trail.is-active {
+  animation: riseAndDrift 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes riseAndDrift {
+  0% {
+    width: 2px;
+    height: 2px;
+    opacity: 0;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  15% {
+    width: 6px;
+    height: 18px;
+    opacity: 0.7;
+  }
+  45% {
+    width: 14px;
+    height: 48px;
+    opacity: 0.45;
+    transform: translateX(-35%) translateY(-15px) scale(1.3);
+  }
+  100% {
+    width: 22px;
+    height: 80px;
+    opacity: 0;
+    transform: translateX(-10%) translateY(-48px) scale(1.75);
+  }
+}
+
+/* Sparkles from blown wish */
+.wish-particle {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 12;
+  box-shadow: 0 0 6px currentColor;
+  animation: floatParticle 2.2s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+@keyframes floatParticle {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.6);
+  }
+  15% {
+    opacity: 0.95;
+  }
+  60% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--vx), var(--vy)) scale(1.4);
+  }
+}
+
+/* Action card & layouts */
+.wish-action-card {
+  text-align: center;
+  min-height: 5.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-btn {
+  font-size: 1rem;
+  padding: 0.8rem 2.2rem;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.action-btn.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.9);
+  position: absolute;
+}
+
+.shake-instruction {
+  margin: 0;
+  color: #fff6fa;
+  font-family: "Caveat", cursive;
+  font-size: clamp(1.4rem, 6vw, 1.9rem);
+  font-weight: 600;
+  line-height: 1.45;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  pointer-events: none;
+}
+
+.shake-instruction.is-visible {
+  opacity: 0.9;
+  transform: translateY(0);
+}
+
+.shake-instruction.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.9);
+  position: absolute;
+}
