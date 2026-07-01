@@ -121,12 +121,24 @@
   transform: translateX(-50%);
   width: 16px;
   height: 28px;
-  pointer-events: none;
+  pointer-events: auto;
+  cursor: pointer;
   transform-origin: center bottom;
   animation: flicker 1.4s infinite alternate ease-in-out;
   transition: transform 0.65s cubic-bezier(0.36, 0.07, 0.19, 0.97), 
               opacity 0.65s ease;
   z-index: 10;
+}
+
+/* Expanded invisible touch target to make flame extremely easy to click/tap on mobile */
+.flame-wrapper::after {
+  content: "";
+  position: absolute;
+  top: -16px;
+  left: -16px;
+  right: -16px;
+  bottom: -16px;
+  border-radius: 50%;
 }
 
 .flame-wrapper.is-blown {

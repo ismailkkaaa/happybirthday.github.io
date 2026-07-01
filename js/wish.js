@@ -90,6 +90,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Flame direct interaction triggers
+  candleFlame.addEventListener("click", () => {
+    triggerBlowOut();
+  });
+  candleFlame.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    triggerBlowOut();
+  });
+
   blowCandleBtn.addEventListener("click", () => {
     triggerBlowOut();
   });
@@ -100,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     let lastX = null, lastY = null, lastZ = null;
     let shakeCounter = 0;
-    const SHAKE_THRESHOLD = 14;
+    const SHAKE_THRESHOLD = 10.5; // Lowered from 14 for better motion sensitivity/reliability
 
     const handleMotion = (event) => {
       if (isBlownOut) return;
